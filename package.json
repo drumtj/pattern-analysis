@@ -1,0 +1,35 @@
+{
+  "name": "@drumtj/pattern-analysis",
+  "version": "1.0.0",
+  "description": "pattern analysis test",
+  "scripts": {
+    "build": "copy *.html dist && webpack -p",
+    "release": "npm run build && npm run deploy",
+    "deploy": "git add -A && git commit -m 'deploy' && git push origin master && git subtree push --prefix dist origin gh-pages"
+  },
+  "homepage": "https://github.com/drumtj/pattern-analysis",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drumtj/pattern-analysis"
+  },
+  "author": {
+    "name": "tj",
+    "email": "drumtj@gmail.com"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.4",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.2.2",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-sources": "^1.3.0"
+  }
+}
