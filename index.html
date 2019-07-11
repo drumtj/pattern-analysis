@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <style media="screen">
+      .panel {
+        border: 1px solid gray;
+        width: 582px;
+        margin: 2px;
+      }
+    </style>
+    <title></title>
+  </head>
+  <body>
+    <div class="panel">
+      <button id="data12">12개 데이터</button>
+      <button id="data6">6개월 데이터</button>
+      <button id="data3">3개월 데이터</button>
+      <button id="data1">1개월 데이터</button>
+      <br>
+      <span style="color:gray;font-size:12pt">패턴을 직접입력하여 확인 할 수도있음.</span>
+    </div>
+    <div class="panel">
+      <textarea id="pattern" rows="8" cols="80"></textarea>
+    </div>
+    <div class="panel">
+      <label for="pt1">패턴1 자릿수</label>
+      <select id="pt1">
+      </select>
+      <label for="pt2">패턴2 자릿수</label>
+      <select id="pt2">
+      </select>
+      <button id="btn">확인</button>
+    </div>
+    <div class="panel">
+      <label for="pt1_txt">패턴1</label>
+      <input type="text" id="pt1_txt" placeholder="0101">
+      <label for="pt2_txt">패턴2</label>
+      <input type="text" id="pt2_txt" placeholder="11">
+      <button id="btn2">확인</button>
+    </div>
+    <div class="panel">
+      <textarea id="result" rows="20" cols="80"></textarea>
+    </div>
+    <script type="text/javascript" src="./pb.js"></script>
+    <script type="text/javascript">
+      $("#data12").on("click", function(){
+        $("#pattern").val(PB.data.join(''));
+      })
+      $("#data6").on("click", function(){
+        $("#pattern").val(PB.getData(30*6).join(''));
+      })
+      $("#data3").on("click", function(){
+        $("#pattern").val(PB.getData(30*3).join(''));
+      })
+      $("#data1").on("click", function(){
+        $("#pattern").val(PB.getData(30).join(''));
+      })
+      $("#pt1").append(Array(7).fill(0).map((n,i)=>`<option value="${i+1}">${i+1}</option>`).join(''));
+      $("#pt2").append(Array(3).fill(0).map((n,i)=>`<option value="${i+1}">${i+1}</option>`).join(''));
+      $("#pattern").val(PB.data.join(''));
+      $("#btn").on("click", function(){
+        var data = $("#pattern").val();
+        var pc1 = parseInt($("#pt1 option:selected").val());
+        var pc2 = parseInt($("#pt2 option:selected").val());
+        var result = [];
+        PB.pattern(pc1).forEach(pt1=>{
+        	PB.pattern(pc2).forEach(pt2=>{
+        		result.push(PB.patternPro(data, pt1, pt2));
+          })
+        })
+        printResult(result);
+      })
+
+      $("#btn2").on("click", function(){
+        var data = $("#pattern").val();
+        var pt1 = $("#pt1_txt").val();
+        var pt2 = $("#pt2_txt").val();
+        printResult([PB.patternPro(data, pt1, pt2)]);
+      })
+
+      function printResult(result){
+        $("#result").val(result.map(o=>`${o.pt1} 다음에 ${o.pt2} 가 나올확률 ${Math.round(o.p*1000)/10}% (${o.c}/${o.tc})`).join('\n'));
+      }
+    </script>
+  </body>
+</html>
