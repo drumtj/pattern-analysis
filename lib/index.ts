@@ -89,7 +89,11 @@ export function patternPro(d, pt1, pt2){
 		if(s.substr(i+pt1.length, pt2.length) == pt2){
 			c++;
     }
-		s = s.substr(i+pt1.length);
+    s = s.substr(i+1);
+    // if(step && typeof step === "number"){
+    // }else{
+    //   s = s.substr(i+pt1.length);
+    // }
   }
   var p = c/tc;
 	console.error(`${pt1} ${pt2} => ${c}/${tc}, ${p}`);
