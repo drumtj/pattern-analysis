@@ -10,7 +10,7 @@
         margin: 2px;
       }
     </style>
-    <title></title>
+    <title>패턴 분석기</title>
   </head>
   <body>
     <div class="panel">
@@ -35,7 +35,7 @@
     </div>
     <div class="panel">
       <label for="pt1_txt">패턴1</label>
-      <input type="text" id="pt1_txt" placeholder="0101">
+      <input type="text" id="pt1_txt" placeholder="0101" accept="[0-1]">
       <label for="pt2_txt">패턴2</label>
       <input type="text" id="pt2_txt" placeholder="11">
       <button id="btn2">확인</button>
@@ -77,7 +77,12 @@
         var data = $("#pattern").val();
         var pt1 = $("#pt1_txt").val();
         var pt2 = $("#pt2_txt").val();
-        printResult([PB.patternPro(data, pt1, pt2)]);
+        var inputCheck = /^[0-1]+$/;
+        if(inputCheck.test(pt1) && inputCheck.test(pt2)){
+          printResult([PB.patternPro(data, pt1, pt2)]);
+        }else{
+          alert("입력된 패턴형식이 잘못됐습니다. 0과 1로 입력해주세요");
+        }
       })
 
       function printResult(result){
